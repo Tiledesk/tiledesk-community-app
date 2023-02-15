@@ -18,6 +18,7 @@ class FaqKbService {
       // let query = {public: options.public, certified: options.certified};
       Faq_kb.find(query).sort(sortQuery).lean().exec( (err, bots) => {
         if (err) {
+          console.error("err", err)
           reject(err);
         }
         resolve(bots);
