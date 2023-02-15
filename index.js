@@ -9,7 +9,6 @@ const templates = require("./templatesRoute");
 const templatesRoute = templates.router;
 app.use("/chatbots", templatesRoute);
 
-
 mongoose.connect(process.env.mongoUrl, { "useNewUrlParser": true, "autoIndex": false }, async (err) => {
   if (err) { 
     console.error('(Tilebot) Failed to connect to MongoDB on ' + process.env.mongoUrl + " ", err);

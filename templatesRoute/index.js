@@ -26,7 +26,7 @@ router.get('/public/community', async (req, res) => { // ?text=...
   console.log("/public/community")   
   let text = req.query.text;
   let bots = [];
-  let query = {public: true, certified: false, "trashed": { $in: [null, false] }};
+  let query = {public: true, "trashed": { $in: [null, false] }};
   // var query = { "id_project": req.projectid, "trashed": { $in: [null, false] } };
   let search_obj = {"$search": text};
 
