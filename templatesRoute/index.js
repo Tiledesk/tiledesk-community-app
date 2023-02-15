@@ -23,6 +23,7 @@ router.get('/', (req, res) => {
 // });
 
 router.get('/public/community', async (req, res) => { // ?text=...
+  console.log("/public/community")   
   let text = req.query.text;
   let bots = [];
   let query = {public: true, certified: false, "trashed": { $in: [null, false] }};
