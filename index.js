@@ -3,6 +3,7 @@ var express = require('express');
 var app = express();
 var cors = require('cors');
 app.use(cors());
+let mongoose = require('mongoose');
 
 const templates = require("./templatesRoute");
 const templatesRoute = templates.router;
