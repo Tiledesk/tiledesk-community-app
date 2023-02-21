@@ -105,7 +105,7 @@ router.get('/public/templates/:botid', (req, res) => {
           language: faq_kb.language,
           name: faq_kb.name,
           type: faq_kb.type,
-          description: faq_kb.description,
+          // description: faq_kb.description,
           mainCategory: faq_kb.mainCategory,
           attributes: faq_kb.attributes,
           intents: intents
