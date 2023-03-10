@@ -98,7 +98,7 @@ router.get('/public/templates/:botid', (req, res) => {
       let faqs = null;
       try {
         faqs = await faqService.getAll(id_faq_kb); //.then((faqs) => {
-        const intents = faqs.map(({_id, id_project, topic, status, id_faq_kb, createdBy, intent_id, createdAt, updatedAt, __v, ...keepAttrs}) => keepAttrs)
+        const intents = faqs.map(({_id, id_project, topic, status, id_faq_kb, createdBy, createdAt, updatedAt, __v, ...keepAttrs}) => keepAttrs)
         let json = {
           webhook_enabled: faq_kb.webhook_enabled,
           webhook_url: faq_kb.webhook_url,
