@@ -124,6 +124,11 @@ router.get('/public/templates/:botid', (req, res) => {
   })
 });
 
+/**
+ * This route serves all the bots metadata for templates/community purposes
+ * 1. import certtified templates
+ * 2. import community chatbots
+ */
 router.get('/public/templates/windows/:botid', (req, res) => {
   let id_faq_kb = req.params.botid;
   Faq_kb.findById(id_faq_kb, async (err, faq_kb) => {
@@ -149,6 +154,8 @@ router.get('/public/templates/windows/:botid', (req, res) => {
         mainCategory: faq_kb.mainCategory,
         attributes: faq_kb.attributes,
         templateFeatures: faq_kb.templateFeatures,
+        id_project: faq_kb.id_project,
+        certifiedTags: faq_kb.certifiedTags,
         createdBy: faq_kb.createdBy,
         createdAt: faq_kb.createdAt,
         updatedAt: faq_kb.updatedAt
