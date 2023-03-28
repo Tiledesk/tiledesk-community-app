@@ -139,6 +139,7 @@ router.get('/public/templates/windows/:botid', (req, res) => {
     else if (faq_kb["public"]) {
       let json = {
         _id: faq_kb._id,
+        certified: faq_kb.certified,
         language: faq_kb.language,
         name: faq_kb.name,
         type: faq_kb.type,
