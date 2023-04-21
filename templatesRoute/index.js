@@ -150,6 +150,8 @@ router.get('/public/templates/windows/:botid', (req, res) => {
         type: faq_kb.type,
         description: faq_kb.description,
         tags: faq_kb.tags,
+        title: faq_kb.title,
+        short_description: faq_kb.short_description,
         bigImage: faq_kb.bigImage,
         mainCategory: faq_kb.mainCategory,
         attributes: faq_kb.attributes,
