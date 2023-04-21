@@ -44,16 +44,6 @@ var FaqSchema = new Schema({
     required: true,
     index: true
   },
-  title: {
-    type: String,
-    required: false,
-    index: false
-  },
-  short_description: {
-    type: String,
-    required: false,
-    index: false
-  },
   topic: {
     type: String,
     default: "default",

@@ -104,6 +104,8 @@ router.get('/public/templates/:botid', (req, res) => {
           webhook_url: faq_kb.webhook_url,
           language: faq_kb.language,
           name: faq_kb.name,
+          title: faq_kb.title,
+          short_description: faq_kb.short_description,
           type: faq_kb.type,
           // description: faq_kb.description,
           mainCategory: faq_kb.mainCategory,
@@ -126,7 +128,7 @@ router.get('/public/templates/:botid', (req, res) => {
 
 /**
  * This route serves all the bots metadata for templates/community purposes
- * 1. import certtified templates
+ * 1. import certified templates
  * 2. import community chatbots
  */
 router.get('/public/templates/windows/:botid', (req, res) => {

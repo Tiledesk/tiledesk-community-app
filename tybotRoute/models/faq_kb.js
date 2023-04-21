@@ -10,6 +10,16 @@ var Faq_kbSchema = new Schema({
   description: {
     type: String
   },
+  title: {
+    type: String,
+    required: false,
+    index: false
+  },
+  short_description: {
+    type: String,
+    required: false,
+    index: false
+  },
   url: { 
     type: String
   },
