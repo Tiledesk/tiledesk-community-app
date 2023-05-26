@@ -22,23 +22,49 @@ router.get('/', (req, res) => {
 //   }
 // });
 
+//RETURN THE SEARCH FULLTEXT OR FOR LANGUAGE AND CATEGORY
 router.get('/public/community', async (req, res) => { // ?text=...
-  console.log("/public/community")   
+  console.log("/public/community")
+  // full-text
   let text = req.query.text;
+  // language chatbot
+  let lang = req.query.lang;
+  //mainCategory chatbot
+  let category = req.query.category;
   let bots = [];
-  let query = {public: true, "trashed": { $in: [null, false] }};
+  let query = { public: true, "trashed": { $in: [null, false] } };
+  //let query = { public: true, "trashed": { $in: [null, false] }, language: req.query.language };
+  //query.language = req.query.language;
   // var query = { "id_project": req.projectid, "trashed": { $in: [null, false] } };
-  let search_obj = {"$search": text};
 
-  if (text) {    
-    // if (req.query.language) {
-    //   search_obj["$language"] = req.query.language;
-    // }
-    query.$text = search_obj; 
-    console.log("Using query:", query)   
+  // CONTROLL THE LANGUAGE SELECTED FROM THE USER
+  console.log('lang ', lang);
+  if (lang && lang != 'undefined' && lang != 'all_lang') {
+    console.log("lang length", lang.split('-').length);
+    if (lang.split('-').length > 1) {
+      const lang1 = lang.split('-')[0];
+      console.log("before -:", lang1);
+      const lang2 = lang.split('-')[1];
+      console.log("after -:", lang2);
+      query.language = { '$in': [lang1, lang2] };
+    } else {
+      query.language = { '$in': [lang] };
+    }
   }
-
+  // CONTROLL THE CATEGORY SELECTED FROM THE USER
+  console.log('category ', category);
+  if (category && category != 'undefined' && category != 'all_cat') {
+    query.mainCategory = { '$in': [category] };
+  }
+  // CONTROLL THE FULL TEXT SEARCH 
+  console.log('text ', text);
+  let search_obj = { "$search": text };
+  if (text && text != 'undefined') {
+    query.$text = search_obj;
+    console.log("Using query:", query);
+  }
   try {
+    console.log("Using query:", query);
     bots = await faqKbService.getAll(query);
     console.log("bots found:", bots.length);
     res.send(bots);
@@ -51,7 +77,7 @@ router.get('/public/community', async (req, res) => { // ?text=...
 
 router.get('/public/templates', async (req, res) => {
   let bots = [];
-  let query = {public: true, certified: true, "trashed": { $in: [null, false] }};
+  let query = { public: true, certified: true, "trashed": { $in: [null, false] } };
   try {
     bots = await faqKbService.getAll(query);
     res.send(bots);
@@ -98,7 +124,7 @@ router.get('/public/templates/:botid', (req, res) => {
       let faqs = null;
       try {
         faqs = await faqService.getAll(id_faq_kb); //.then((faqs) => {
-        const intents = faqs.map(({_id, id_project, topic, status, id_faq_kb, createdBy, createdAt, updatedAt, __v, ...keepAttrs}) => keepAttrs)
+        const intents = faqs.map(({ _id, id_project, topic, status, id_faq_kb, createdBy, createdAt, updatedAt, __v, ...keepAttrs }) => keepAttrs)
         let json = {
           webhook_enabled: faq_kb.webhook_enabled,
           webhook_url: faq_kb.webhook_url,
@@ -114,14 +140,14 @@ router.get('/public/templates/:botid', (req, res) => {
         }
         return res.send(json);
       }
-      catch(err) {
+      catch (err) {
         console.error('GET FAQ ERROR: ', err)
         return res.status(500).send({ success: false, msg: 'Error getting faqs.' });
       }
     }
     else {
       console.log("private chatbot");
-      res.status(403).send({success: false, message: "Forbidden"});
+      res.status(403).send({ success: false, message: "Forbidden" });
     }
   })
 });
@@ -168,7 +194,7 @@ router.get('/public/templates/windows/:botid', (req, res) => {
     }
     else {
       console.log("private chatbot");
-      res.status(403).send({success: false, message: "Forbidden"});
+      res.status(403).send({ success: false, message: "Forbidden" });
     }
   })
 });
@@ -188,4 +214,4 @@ router.get('/public/templates/windows/:botid', (req, res) => {
 //   return null;
 // }
 
-module.exports = { router: router};
+module.exports = { router: router };
