@@ -11,13 +11,13 @@ class FaqKbService {
         "trashed": { $in: [null, false] }
       }
     }
-    var sortQuery = {};
+    var sortQuery = { createdAt: -1 };
     sortQuery["score"] = -1;
     console.log("(Service) GET ALL FAQ_KBs");
     return new Promise((resolve, reject) => {
       // let query = {public: options.public, certified: options.certified};
-      Faq_kb.find(query).sort(sortQuery).lean().exec( (err, bots) => {
-        console.log(".....")
+      Faq_kb.find(query).sort(sortQuery).lean().exec((err, bots) => {
+        console.log("sortQuery", sortQuery)
         if (err) {
           console.error("err", err)
           reject(err);
