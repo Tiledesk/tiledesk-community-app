@@ -75,6 +75,26 @@ router.get('/public/community', async (req, res) => { // ?text=...
   }
 });
 
+
+router.get('/public/author/:authoid', async (req, res) => {
+   // author chatbot
+  let authorid = req.params.authoid;
+  console.log("authorID:", authorid);
+  let bots = [];
+  let query = {'public': true,trashed: {$in: [ null, false]}, createdBy: {$eq: authorid}};
+  try {
+    console.log("Using author query:", query);
+    bots = await faqKbService.getAll(query);
+    res.send(bots);
+  }
+  catch (err) {
+    console.error('GET FAQ-KBs ERROR ', err);
+    return res.status(500).send({ success: false, msg: 'Error getting bots.' });
+  }
+});
+
+
+
 router.get('/public/templates', async (req, res) => {
   let bots = [];
   let query = { public: true, certified: true, "trashed": { $in: [null, false] } };
